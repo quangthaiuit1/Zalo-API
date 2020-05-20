@@ -1,7 +1,7 @@
-package model;
+package com.api.model;
 
 public class OAZalo {
-	private int err;
+	private int error;
 	private String message;
 	private String messageId;
 	
@@ -9,16 +9,16 @@ public class OAZalo {
 
 	}
 	public OAZalo(int err, String message, String messageId) {
-		this.err = err;
+		this.error = err;
 		this.message = message;
 		this.messageId	= messageId;
 	}
 	
 	public int getErr() {
-		return err;
+		return error;
 	}
 	public void setErr(int err) {
-		this.err = err;
+		this.error = err;
 	}
 	public String getMessage() {
 		return message;
