@@ -44,7 +44,7 @@ public class SendMessage {
        		if(err == 0) {
        			data.setErr(err);
        			String message_id = result.getJSONObject("data").getString("message_id");
-       			String message = result.getJSONObject("data").getString("message");
+       			String message = result.getString("message");
        			data.setMessageId(message_id);
        			data.setMessage(message);
 		    }else {
