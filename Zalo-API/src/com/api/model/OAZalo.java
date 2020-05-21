@@ -14,10 +14,10 @@ public class OAZalo {
 		this.messageId	= messageId;
 	}
 	
-	public int getErr() {
+	public int getError() {
 		return error;
 	}
-	public void setErr(int err) {
+	public void setError(int err) {
 		this.error = err;
 	}
 	public String getMessage() {

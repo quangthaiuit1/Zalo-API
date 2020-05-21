@@ -1,6 +1,7 @@
 package com.api.officialaccount;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -30,7 +31,9 @@ public class Message {
 		JSONObject end = new JSONObject();
 		end.put("recipient", userObject);
 		end.put("message", text);
-		String urlEnd = url + "?access_token=" + accessToken;
+		//Encode accessToken 
+		String accessTokenEncode = URLEncoder.encode(accessToken);
+		String urlEnd = url + "?access_token=" + accessTokenEncode;
 		try {
 			HttpPost httppost = new HttpPost(urlEnd);
 			httppost.setHeader("Content-Type", "application/json; charset=utf-8");
@@ -43,13 +46,13 @@ public class Message {
 			OAZalo data = new OAZalo();
 			int err = result.getInt("error");
 			if (err == 0) {
-				data.setErr(err);
+				data.setError(err);
 				String message_id = result.getJSONObject("data").getString("message_id");
 				String message = result.getString("message");
 				data.setMessageId(message_id);
 				data.setMessage(message);
 			} else {
-				data.setErr(err);
+				data.setError(err);
 			}
 			return data;
 		} catch (IOException ex) {
@@ -64,9 +67,12 @@ public class Message {
 	public static User getUserId(String url, String accessToken, String phoneNumber) {
 		HttpClient httpclient = HttpClients.createDefault();
 		JSONObject userIdJson = new JSONObject();
+		//Create param user_id by phone number
 		userIdJson.put("user_id", phoneNumber);
-		String userIdJsonString = userIdJson.toString();
-		String urlEnd = url +  "?access_token=" + accessToken + "&data=" + userIdJsonString;
+		//Encode format url 
+		String accessTokenEncode = URLEncoder.encode(accessToken);
+		String userIdEncode = URLEncoder.encode(userIdJson.toString());
+		String urlEnd = url +  "?access_token=" + accessTokenEncode + "&data=" + userIdEncode;
 		try {
 			HttpGet httpGet = new HttpGet(urlEnd);
 			// add request header
